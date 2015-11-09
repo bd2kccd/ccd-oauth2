@@ -1,0 +1,52 @@
+buildscript {
+    ext {
+        springBootVersion='1.2.6.RELEASE'
+    }
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+jar {
+    baseName = 'ccd-security-oauth2'
+    version = '0.1.0'
+}
+
+def compatibilityVersion = 1.8
+sourceCompatibility = compatibilityVersion
+targetCompatibility = compatibilityVersion
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    //compile time
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.security:spring-security-data:4.0.0.RC2')
+    compile('org.springframework.security.oauth:spring-security-oauth2:2.0.8.RELEASE')
+    compile('com.jayway.jsonpath:json-path')
+    compile('org.hibernate:hibernate-validator')
+
+    // run time
+    runtime('org.hsqldb:hsqldb')
+    runtime('mysql:mysql-connector-java')
+
+    //testing
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+// gradle wrapper (./gradlew)
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.8'
+}
