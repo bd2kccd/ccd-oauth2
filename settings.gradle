@@ -1,0 +1,2 @@
+include 'ccd-db'
+    project(':ccd-db').projectDir = new File(rootDir, "../../db")

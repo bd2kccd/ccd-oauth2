@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion='1.2.6.RELEASE'
+        springBootVersion='1.2.7.RELEASE'
     }
     repositories {
         jcenter()
@@ -37,6 +37,7 @@ dependencies {
     compile('org.springframework.security.oauth:spring-security-oauth2:2.0.8.RELEASE')
     compile('com.jayway.jsonpath:json-path')
     compile('org.hibernate:hibernate-validator')
+    compile project(':ccd-db')
 
     // run time
     runtime('org.hsqldb:hsqldb')
