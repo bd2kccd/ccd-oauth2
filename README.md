@@ -25,7 +25,7 @@ The URLs provided by the Spring Security OAuth2 framework are as follows:
 If this configuration is undesirable, you may provide a custom resouce server by:
 
 1. Adding the _resourceServer_ profile to your application
-2. Editing the method in `ResourceServerConfig.java` with desired permissions
+2. Updating the method in `ResourceServerConfig.java` with desired permissions
 
 ###Example
 Here is a basic authentication example using curl.
