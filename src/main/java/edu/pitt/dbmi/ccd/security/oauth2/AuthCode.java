@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.Column;
+import javax.persistence.Lob;
 
 /**
  * @author Mark Silvis (marksilvis@pitt.edu)
@@ -21,7 +22,7 @@ public class AuthCode implements Serializable {
     @Column(nullable=true)
     private String code;
 
-    @Column(nullable=true,
-            columnDefinition="BLOB")
+    @Lob
+    @Column(nullable=true)
     private byte[] authentication;
 }

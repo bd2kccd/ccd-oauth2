@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.Column;
+import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -24,13 +25,13 @@ public class ClientToken implements Serializable {
     private String tokenId;
 
     @NotNull
-    @Column(nullable=false,
-            columnDefinition="BLOB")
+    @Lob
+    @Column(nullable=false)
     private byte[] token;
 
     @NotNull
     @Column(nullable=false)
-    private String username;
+    private String userName;
 
     @NotNull
     @Column(nullable=false)
