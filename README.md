@@ -6,7 +6,8 @@ ccd-db
 
 ###To add to your Spring application 
 - Change ccd-db path in settings.gradle
-- Add the following to your main class `@Import({CCDSecurityApplication.class})`
+- Add the following to your main class    
+`@Import({CCDSecurityApplication.class})`
 
 ###Custom Resource Server
 The _resource server_ filters requests by authentication. ccd-security-oauth2 uses the default resource server configuration, which does the following:
@@ -22,6 +23,7 @@ The URLs provided by the Spring Security OAuth2 framework are as follows:
 - `/oauth/token_key` exposes public key for token verification if using JWT tokens
 
 If this configuration is undesirable, you may provide a custom resouce server by:
+
 1. Adding the _resourceServer_ profile to your application
 2. Editing the method in `ResourceServerConfig.java`
 
