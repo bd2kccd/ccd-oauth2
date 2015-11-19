@@ -23,21 +23,21 @@ import edu.pitt.dbmi.ccd.security.userDetails.CustomUserDetailsService;
  */
 @Configuration
 @EnableAuthorizationServer
-public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     /**
      * Number of rounds when performing BCrypt on passwords
      */
     private static final int BCRYPT_ROUNDS = 10;
 
-    @Autowired
+    @Autowired(required=true)
     private DataSource dataSource;
 
-    @Autowired
+    @Autowired(required=true)
     @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
 
-    @Autowired
+    @Autowired(required=true)
     private CustomUserDetailsService userDetailsService;
 
     /**
@@ -61,7 +61,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     }
 
     /**
-     * Inject BCrypt password encoder
+     * Create BCrypt password encoder
      * @return BCryptPasswordEncoder, rounds = BCRYPT_ROUNDS
      */
     @Bean
@@ -70,7 +70,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     }
 
     /**
-     * Permits querying by current authenticated user
+     * Enables querying by current authenticated user
      */
     @Bean
     public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
@@ -84,8 +84,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
             .tokenStore(tokenStore())
-            .authenticationManager(this.authenticationManager)
-            .userDetailsService(this.userDetailsService);
+            .authenticationManager(authenticationManager)
+            .userDetailsService(userDetailsService);
     }
 
     /**
@@ -94,7 +94,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients
-            .jdbc(dataSource)
+            // .jdbc(dataSource)
+            .inMemory()
                 .withClient("curl")
                     .authorizedGrantTypes("password", "refresh_token")
                     .authorities("ROLE_USER", "ROLE_ADMIN")
