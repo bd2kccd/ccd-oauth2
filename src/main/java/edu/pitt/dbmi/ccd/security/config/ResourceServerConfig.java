@@ -19,9 +19,5 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
      * Security filter configuration
      */
     @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/**")
-                .authorizeRequests()
-                    .anyRequest().authenticated();
-    }
+    public void configure(HttpSecurity http) throws Exception { }
 }
