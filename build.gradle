@@ -36,7 +36,6 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-jdbc')
     compile('org.springframework.security:spring-security-data:4.0.0.RC2')
     compile('org.springframework.security.oauth:spring-security-oauth2:2.0.8.RELEASE')
-    compile('com.jayway.jsonpath:json-path')
     compile('org.hibernate:hibernate-validator')
     compile project(':ccd-db')
 
