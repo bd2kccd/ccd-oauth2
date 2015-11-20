@@ -22,10 +22,10 @@ The URLs provided by the Spring Security OAuth2 framework are as follows:
 - `/oauth/check_token` used by Resource Servers to decode access tokens
 - `/oauth/token_key` exposes public key for token verification if using JWT tokens
 
-If this configuration is undesirable, you may provide a custom resouce server by:
+If this configuration is undesirable, you may provide a custom resource server implementation by:
 
-1. Adding the _resourceServer_ profile to your application
-2. Updating the method in `ResourceServerConfig.java` with desired permissions
+1. Removing the `@EnableResourceServer` from CCDSecurityApplication.java
+2. Implementing your own `ResourceServerConfigurerAdapter` with the `@EnableResourceServer` annotation
 
 ###Example
 Here is a basic authentication example using curl.
