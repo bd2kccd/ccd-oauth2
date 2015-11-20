@@ -28,7 +28,7 @@ If this configuration is undesirable, you may provide a custom resource server i
 2. Implementing your own `ResourceServerConfigurerAdapter` with the `@EnableResourceServer` annotation
 
 ###Example
-Here is a basic authentication example using curl.
+Here is a simple authentication example using curl.
 
 ```
 # request token
