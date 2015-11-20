@@ -24,7 +24,7 @@ The URLs provided by the Spring Security OAuth2 framework are as follows:
 
 If this configuration is undesirable, you may provide a custom resource server implementation by:
 
-1. Removing the `@EnableResourceServer` from CCDSecurityApplication.java
+1. Removing the `@EnableResourceServer` annotation from CCDSecurityApplication.java
 2. Implementing your own `ResourceServerConfigurerAdapter` with the `@EnableResourceServer` annotation
 
 ###Example
