@@ -18,7 +18,7 @@ apply plugin: 'spring-boot'
 
 jar {
     baseName = 'ccd-security-oauth2'
-    version = '0.1.0'
+    version = '1.0.0'
 }
 
 def compatibilityVersion = 1.8
