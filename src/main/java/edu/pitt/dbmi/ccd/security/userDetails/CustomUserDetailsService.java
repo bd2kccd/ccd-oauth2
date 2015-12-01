@@ -28,6 +28,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.accountRepository = accountRepository;
     }
 
+    /**
+     * Finds UserDetails by {@link UserAccount#username}
+     * @param  username  username of 
+     * @return UserDetails of corresponding UserAccount if username is found,
+     *         otherwise throws {@link org.springframework.security.core.userdetails.UsernameNotFoundException}s
+     */
     @Override
     public UserDetails loadUserByUsername(String username) {
         UserAccount account = accountRepository.findByUsername(username);
@@ -38,9 +44,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     /**
-     * Extends UserAccount entity into a class usable for Spring Security's UserDetails
+     * Extends UserAccount entity into a class suitable for Spring Security's UserDetails
      */
-    private final static class CustomUserDetails extends UserAccount implements UserDetails, Serializable {
+    private static final class CustomUserDetails extends UserAccount implements UserDetails, Serializable {
         private static final long serialVersionUID = 7123123887734014705L;
 
         private CustomUserDetails(UserAccount account) {
@@ -49,6 +55,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         /**
          * Returns UserAccount's set of UserRoles as GrantedAuthority implementation
+         * 
          * @return Collection<RoleAuthority>
          */
         @Override
@@ -57,6 +64,12 @@ public class CustomUserDetailsService implements UserDetailsService {
             return new HashSet<RoleAuthority>(Arrays.asList(role));
         }
 
+        /**
+         * Get username
+         * 
+         * @return username
+         * @see  UserAcount#getUsername()
+         */
         @Override
         public String getUsername() {
             return super.getUsername();

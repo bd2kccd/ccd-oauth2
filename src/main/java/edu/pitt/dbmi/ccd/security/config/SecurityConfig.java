@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import edu.pitt.dbmi.ccd.security.userDetails.CustomUserDetailsService;
 
 /**
+ * Configures web security
+ * 
  * @author Mark Silvis (marksilvis@pitt.edu)
  */
 @Configuration
