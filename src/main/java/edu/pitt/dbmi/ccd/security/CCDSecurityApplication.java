@@ -8,6 +8,8 @@ import org.springframework.context.ApplicationContext;
 import edu.pitt.dbmi.ccd.db.CCDDatabaseApplication;
 
 /**
+ * OAuth 2.0 package for CCD applications
+ * 
  * @author Mark Silvis (marksilvis@pitt.edu)
  */
 @SpringBootApplication

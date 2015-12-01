@@ -26,9 +26,9 @@ import edu.pitt.dbmi.ccd.security.userDetails.CustomUserDetailsService;
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     /**
-     * Number of rounds when performing BCrypt on passwords
+     * Number of rounds when performing BCrypt on passwords (Default is 10)
      */
-    private static final int BCRYPT_ROUNDS = 10;
+    public static final int BCRYPT_ROUNDS = 10;
 
     @Autowired(required=true)
     private DataSource dataSource;
@@ -42,6 +42,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     /**
      * OAuth token store
+     * 
+     * @return TokenStore
      */
     @Bean
     public TokenStore tokenStore() {
@@ -50,6 +52,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     /**
      * Token configuration
+     * 
+     * @return DefaultTokenServices
      */
     @Bean
     @Primary
@@ -61,8 +65,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     /**
-     * Create BCrypt password encoder
-     * @return BCryptPasswordEncoder, rounds = BCRYPT_ROUNDS
+     * Create {@value #BCRYPT_ROUNDS} round BCrypt password encoder
+     * 
+     * @return BCryptPasswordEncoder
      */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -70,7 +75,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     /**
-     * Enables querying by current authenticated user
+     * Enables querying by current authenticated user (@AuthenticationPrincipal)
+     * 
+     * @return  SecurityEvaluationContextExtension
+     * @see org.springframework.security.core.Authentication#getPrincipal()
      */
     @Bean
     public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
@@ -79,6 +87,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     /**
      * Endpoints configuration
+     * 
+     * @see org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
@@ -89,13 +99,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     /**
-     * Client details configuration
+     * Client database store configuration
+     * 
+     * @see org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients
-            // .jdbc(dataSource)
-            .inMemory()
+            .jdbc(dataSource)
                 .withClient("curl")
                     .authorizedGrantTypes("password", "refresh_token")
                     .authorities("ROLE_USER", "ROLE_ADMIN")

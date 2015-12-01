@@ -12,13 +12,13 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'spring-boot'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'spring-boot'
 
 jar {
     baseName = 'ccd-security-oauth2'
-    version = '1.0.0'
+    version = '1.0.1'
 }
 
 def compatibilityVersion = 1.8
