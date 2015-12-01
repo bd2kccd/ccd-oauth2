@@ -49,6 +49,6 @@ public class ClientDetails implements Serializable {
     @Column(length=4096, nullable=true)
     private String additionalInformation;
 
-    @Column(nullable=true)
+    @Column(name="autoapprove", nullable=true)
     private String autoApproveScopes;
 }
