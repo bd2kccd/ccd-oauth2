@@ -99,17 +99,23 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     /**
-     * Client database store configuration
+     * Client store configuration
      * 
      * @see org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        // clients stored in memory
         clients
-            .jdbc(dataSource)
-                .withClient("curl")
-                    .authorizedGrantTypes("password", "refresh_token")
-                    .authorities("ROLE_USER", "ROLE_ADMIN")
-                    .scopes("read", "write");
+            .inMemory()
+                    .withClient("curl")
+                        .authorizedGrantTypes("password", "refresh_token")
+                        .authorities("ROLE_USER", "ROLE_ADMIN")
+                        .scopes("read", "write");
+
+        // clients stored in database
+        // clients
+        //     .jdbc(dataSource)
+        //         .passwordEncoder(passwordEncoder());
     }
 }
