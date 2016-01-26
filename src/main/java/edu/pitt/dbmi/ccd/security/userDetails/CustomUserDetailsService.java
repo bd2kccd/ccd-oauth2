@@ -1,5 +1,6 @@
 package edu.pitt.dbmi.ccd.security.userDetails;
 
+import java.util.Optional;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Arrays;
@@ -36,11 +37,11 @@ public class CustomUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) {
-        UserAccount account = accountRepository.findByUsername(username);
-        if (account == null) {
+        Optional<UserAccount> account = accountRepository.findByUsername(username);
+        if (!account.isPresent()) {
             throw new UsernameNotFoundException(String.format("User %s does not exist", username));
         }
-        return new CustomUserDetails(account);
+        return new CustomUserDetails(account.get());
     }
 
     /**
