@@ -3,8 +3,8 @@ package edu.pitt.dbmi.ccd.security.userDetails;
 import java.util.Optional;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Arrays;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -61,8 +61,9 @@ public class CustomUserDetailsService implements UserDetailsService {
          */
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            RoleAuthority role = new RoleAuthority(super.getRole());
-            return new HashSet<RoleAuthority>(Arrays.asList(role));
+            return new HashSet<RoleAuthority>(super.getRoles().stream()
+                                                              .map(RoleAuthority::new)
+                                                              .collect(Collectors.toList()));
         }
 
         /**

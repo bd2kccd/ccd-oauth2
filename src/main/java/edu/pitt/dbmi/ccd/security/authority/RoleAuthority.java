@@ -8,12 +8,15 @@ import edu.pitt.dbmi.ccd.db.entity.UserRole;
  * 
  * @author Mark Silvis (marksilvis@pitt.edu)
  */
-public class RoleAuthority implements GrantedAuthority {
+public final class RoleAuthority implements GrantedAuthority {
+    // prefix to role
+    private static final String rolePrefix = "ROLE_";
     
-    private String name;
+    // role name
+    private final String name;
 
     public RoleAuthority(UserRole role) {
-        this.name = "ROLE_" + role.getName().toUpperCase();
+        this.name = rolePrefix + role.getName().toUpperCase();
     }
 
     /**
