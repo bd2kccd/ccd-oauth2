@@ -25,9 +25,7 @@ import edu.pitt.dbmi.ccd.security.userDetails.CustomUserDetailsService;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    /**
-     * Number of rounds when performing BCrypt on passwords (Default is 10)
-     */
+    // Number of rounds when performing BCrypt on passwords (Default is 10)
     public static final int BCRYPT_ROUNDS = 10;
 
     @Autowired(required=true)

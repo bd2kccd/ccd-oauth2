@@ -30,10 +30,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     /**
-     * Finds UserDetails by {@link UserAccount#username}
-     * @param  username  username of 
+     * Finds UserDetails by username of UserAccount
+     * @param  username  username of UserAccount
      * @return UserDetails of corresponding UserAccount if username is found,
-     *         otherwise throws {@link org.springframework.security.core.userdetails.UsernameNotFoundException}s
+     *         otherwise throws {@link org.springframework.security.core.userdetails.UsernameNotFoundException}
      */
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -61,16 +61,16 @@ public class CustomUserDetailsService implements UserDetailsService {
          */
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return new HashSet<RoleAuthority>(super.getRoles().stream()
-                                                              .map(RoleAuthority::new)
-                                                              .collect(Collectors.toList()));
+            return new HashSet<RoleAuthority>(super.getRoles()
+                                                   .stream()
+                                                   .map(RoleAuthority::new)
+                                                   .collect(Collectors.toList()));
         }
 
         /**
          * Get username
          * 
          * @return username
-         * @see  UserAcount#getUsername()
          */
         @Override
         public String getUsername() {
