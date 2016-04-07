@@ -1,21 +1,24 @@
 package edu.pitt.dbmi.ccd.security.config;
 
 import javax.sql.DataSource;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
+
+import edu.pitt.dbmi.ccd.security.crypto.SHA256PasswordEncoder;
 import edu.pitt.dbmi.ccd.security.userDetails.CustomUserDetailsService;
 
 /**
@@ -25,10 +28,8 @@ import edu.pitt.dbmi.ccd.security.userDetails.CustomUserDetailsService;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    /**
-     * Number of rounds when performing BCrypt on passwords (Default is 10)
-     */
-    public static final int BCRYPT_ROUNDS = 10;
+    // Number of rounds when performing BCrypt on passwords (Default is 10)
+//    public static final int BCRYPT_ROUNDS = 10;
 
     @Autowired(required=true)
     private DataSource dataSource;
@@ -42,7 +43,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     /**
      * OAuth token store
-     * 
+     *
      * @return TokenStore
      */
     @Bean
@@ -52,7 +53,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     /**
      * Token configuration
-     * 
+     *
      * @return DefaultTokenServices
      */
     @Bean
@@ -65,18 +66,18 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     /**
-     * Create {@value #BCRYPT_ROUNDS} round BCrypt password encoder
-     * 
-     * @return BCryptPasswordEncoder
+     * Create SHA-256 PasswordEncoder
+     *
+     * @return PasswordEncoder
      */
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(BCRYPT_ROUNDS);
+    public PasswordEncoder passwordEncoder() {
+        return new SHA256PasswordEncoder();
     }
 
     /**
      * Enables querying by current authenticated user (@AuthenticationPrincipal)
-     * 
+     *
      * @return  SecurityEvaluationContextExtension
      * @see org.springframework.security.core.Authentication#getPrincipal()
      */
@@ -87,7 +88,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     /**
      * Endpoints configuration
-     * 
+     *
      * @see org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer
      */
     @Override
@@ -99,17 +100,23 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     /**
-     * Client database store configuration
-     * 
+     * Client store configuration
+     *
      * @see org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        // clients stored in memory
         clients
-            .jdbc(dataSource)
-                .withClient("curl")
-                    .authorizedGrantTypes("password", "refresh_token")
-                    .authorities("ROLE_USER", "ROLE_ADMIN")
-                    .scopes("read", "write");
+            .inMemory()
+                    .withClient("curl")
+                        .authorizedGrantTypes("password", "refresh_token")
+                        .authorities("ROLE_USER", "ROLE_ADMIN")
+                        .scopes("read", "write");
+
+        // clients stored in database
+        // clients
+        //     .jdbc(dataSource)
+        //         .passwordEncoder(passwordEncoder());
     }
 }

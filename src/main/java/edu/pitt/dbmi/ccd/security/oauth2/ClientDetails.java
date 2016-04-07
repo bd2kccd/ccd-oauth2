@@ -37,12 +37,10 @@ public class ClientDetails implements Serializable {
     @Column(nullable=true)
     private String authorities;
 
-    @Column(nullable=true,
-            columnDefinition="INT(11)")
+    @Column(nullable=true, columnDefinition="INT(11)")
     private Integer accessTokenValidity;
 
-    @Column(nullable=true,
-            columnDefinition="INT(11)")
+    @Column(nullable=true, columnDefinition="INT(11)")
     private Integer refreshTokenValidity;
 
     @Size(max=4096)

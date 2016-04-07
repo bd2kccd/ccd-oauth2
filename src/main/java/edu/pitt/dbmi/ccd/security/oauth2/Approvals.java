@@ -1,7 +1,7 @@
 package edu.pitt.dbmi.ccd.security.oauth2;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
@@ -36,12 +36,10 @@ public class Approvals implements Serializable {
     private String status;
 
     @NotNull
-    @Column(nullable=false,
-            columnDefinition="TIMESTAMP")
-    private Date expires;
+    @Column(nullable=false, columnDefinition="TIMESTAMP")
+    private Timestamp expires;
 
     @NotNull
-    @Column(nullable=false,
-            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private Date lastModified;
+    @Column(nullable=false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private Timestamp lastModified;
 }

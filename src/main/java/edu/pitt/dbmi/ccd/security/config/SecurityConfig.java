@@ -21,13 +21,13 @@ import edu.pitt.dbmi.ccd.security.userDetails.CustomUserDetailsService;
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
+    @Autowired(required=true)
     private CustomUserDetailsService userDetailsService;
 
-    @Autowired
+    @Autowired(required=true)
     private BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
+    @Autowired(required=true)
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
             .passwordEncoder(passwordEncoder);

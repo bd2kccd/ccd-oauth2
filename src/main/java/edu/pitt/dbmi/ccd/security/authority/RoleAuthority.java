@@ -5,22 +5,25 @@ import edu.pitt.dbmi.ccd.db.entity.UserRole;
 
 /**
  * Transforms {@link edu.pitt.dbmi.ccd.db.entity.UserRole} into {@link org.springframework.security.core.GrantedAuthority} implementation
+ * @see edu.pitt.dbmi.ccd.db.entity.UserRole
  * 
  * @author Mark Silvis (marksilvis@pitt.edu)
  */
-public class RoleAuthority implements GrantedAuthority {
+public final class RoleAuthority implements GrantedAuthority {
+    // prefix to role
+    private static final String rolePrefix = "ROLE_";
     
-    private String name;
+    // role name
+    private final String name;
 
     public RoleAuthority(UserRole role) {
-        this.name = "ROLE_" + role.getName().toUpperCase();
+        this.name = rolePrefix + role.getName().toUpperCase();
     }
 
     /**
      * Returns name of {@link UserRole} as proper role (example: "ROLE_X")
      * 
      * @return name of authority
-     * @see edu.pitt.dbmi.ccd.db.entity.UserRole#getName()
      */
     @Override
     public String getAuthority() {

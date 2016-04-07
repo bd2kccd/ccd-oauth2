@@ -1,9 +1,10 @@
 package edu.pitt.dbmi.ccd.security.userDetails;
 
+import java.util.Optional;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Arrays;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,18 +30,18 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     /**
-     * Finds UserDetails by {@link UserAccount#username}
-     * @param  username  username of 
+     * Finds UserDetails by username of UserAccount
+     * @param  username  username of UserAccount
      * @return UserDetails of corresponding UserAccount if username is found,
-     *         otherwise throws {@link org.springframework.security.core.userdetails.UsernameNotFoundException}s
+     *         otherwise throws {@link org.springframework.security.core.userdetails.UsernameNotFoundException}
      */
     @Override
     public UserDetails loadUserByUsername(String username) {
-        UserAccount account = accountRepository.findByUsername(username);
-        if (account == null) {
+        Optional<UserAccount> account = accountRepository.findByUsername(username);
+        if (!account.isPresent()) {
             throw new UsernameNotFoundException(String.format("User %s does not exist", username));
         }
-        return new CustomUserDetails(account);
+        return new CustomUserDetails(account.get());
     }
 
     /**
@@ -48,7 +49,7 @@ public class CustomUserDetailsService implements UserDetailsService {
      */
     private static final class CustomUserDetails extends UserAccount implements UserDetails, Serializable {
         private static final long serialVersionUID = 7123123887734014705L;
-
+        
         private CustomUserDetails(UserAccount account) {
             super(account);
         }
@@ -60,15 +61,16 @@ public class CustomUserDetailsService implements UserDetailsService {
          */
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            RoleAuthority role = new RoleAuthority(super.getRole());
-            return new HashSet<RoleAuthority>(Arrays.asList(role));
+            return new HashSet<RoleAuthority>(super.getRoles()
+                                                   .stream()
+                                                   .map(RoleAuthority::new)
+                                                   .collect(Collectors.toList()));
         }
 
         /**
          * Get username
          * 
          * @return username
-         * @see  UserAcount#getUsername()
          */
         @Override
         public String getUsername() {
