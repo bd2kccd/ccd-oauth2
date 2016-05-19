@@ -5,10 +5,10 @@ A security module for CCD applications using OAuth 2.0
 ccd-db
 
 ###Install
-*Linux and OS X*
+**Linux and OS X**    
 ./gradlew install
 
-*Windows*
+**Windows**    
 gradlew install
 
 ###To add to your Spring application 
