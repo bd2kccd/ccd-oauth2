@@ -103,13 +103,21 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        final int thirtyMinutes = 1800;     // 1,800 seconds
+
         // clients stored in memory
-        clients
-            .inMemory()
-                    .withClient("curl")
-                        .authorizedGrantTypes("password", "refresh_token")
-                        .authorities("ROLE_USER", "ROLE_ADMIN")
-                        .scopes("read", "write");
+        clients.inMemory()
+            .withClient("curl")
+                .authorizedGrantTypes("password", "refresh_token")
+                .authorities("ROLE_USER", "ROLE_ADMIN")
+                .scopes("read", "write")
+                .accessTokenValiditySeconds(thirtyMinutes)
+            .and()
+            .withClient("causal-web")
+                .authorizedGrantTypes("password", "refresh_token")
+                .authorities("ROLE_USER")
+                .scopes("read", "write", "trust")
+                .accessTokenValiditySeconds(thirtyMinutes);
 
         // clients stored in database
         // clients

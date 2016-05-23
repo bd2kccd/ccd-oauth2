@@ -1,27 +1,28 @@
 package edu.pitt.dbmi.ccd.security.userDetails;
 
-import java.util.Optional;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.stream.Collectors;
-import org.springframework.stereotype.Service;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.core.GrantedAuthority;
-import edu.pitt.dbmi.ccd.security.authority.RoleAuthority;
+import org.springframework.stereotype.Service;
+
 import edu.pitt.dbmi.ccd.db.entity.UserAccount;
-import edu.pitt.dbmi.ccd.db.entity.UserRole;
 import edu.pitt.dbmi.ccd.db.repository.UserAccountRepository;
+import edu.pitt.dbmi.ccd.security.authority.RoleAuthority;
 
 /**
  * @author Mark Silvis (marksilvis@pitt.edu)
  */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    
+
     private final UserAccountRepository accountRepository;
 
     @Autowired
@@ -36,7 +37,7 @@ public class CustomUserDetailsService implements UserDetailsService {
      *         otherwise throws {@link org.springframework.security.core.userdetails.UsernameNotFoundException}
      */
     @Override
-    public UserDetails loadUserByUsername(String username) {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UserAccount> account = accountRepository.findByUsername(username);
         if (!account.isPresent()) {
             throw new UsernameNotFoundException(String.format("User %s does not exist", username));
@@ -49,14 +50,14 @@ public class CustomUserDetailsService implements UserDetailsService {
      */
     private static final class CustomUserDetails extends UserAccount implements UserDetails, Serializable {
         private static final long serialVersionUID = 7123123887734014705L;
-        
+
         private CustomUserDetails(UserAccount account) {
             super(account);
         }
 
         /**
          * Returns UserAccount's set of UserRoles as GrantedAuthority implementation
-         * 
+         *
          * @return Collection<RoleAuthority>
          */
         @Override
@@ -69,7 +70,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         /**
          * Get username
-         * 
+         *
          * @return username
          */
         @Override

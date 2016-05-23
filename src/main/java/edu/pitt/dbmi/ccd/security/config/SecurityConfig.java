@@ -44,14 +44,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Override
-    @Order(-1)
-    public void configure(HttpSecurity http) throws Exception {
-        http
-            // .csrf().disable()
-            .authorizeRequests()
-            .antMatchers(HttpMethod.OPTIONS, "/api/oauth/**").anonymous()
+   @Override
+   public void configure(HttpSecurity http) throws Exception {
+       http
+           .authorizeRequests()
+               .antMatchers(HttpMethod.OPTIONS, "/**").anonymous()
             .and()
-            .formLogin();
-    }
+            .formLogin()
+                .defaultSuccessUrl("/api");
+   }
 }
