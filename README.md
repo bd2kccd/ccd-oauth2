@@ -13,7 +13,7 @@ gradlew install
 
 ###To add to your Spring application 
 - Add the following to your main class    
-`@Import({CCDSecurityApplication.class})`
+`@Import({CCDOAuth2.class})`
 
 ###Custom Resource Server
 The _resource server_ filters requests by authentication. ccd-security-oauth2 uses the default resource server configuration, which does the following:
