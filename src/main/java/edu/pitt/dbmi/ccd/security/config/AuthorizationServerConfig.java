@@ -104,6 +104,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         final int thirtyMinutes = 1800;     // 1,800 seconds
+        final int fourteenDays = 1209600;   // 1,209,600 seconds
 
         // clients stored in memory
         clients.inMemory()
@@ -112,16 +113,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authorities("ROLE_USER", "ROLE_ADMIN")
                 .scopes("read", "write")
                 .accessTokenValiditySeconds(thirtyMinutes)
+                .refreshTokenValiditySeconds(fourteenDays)
             .and()
             .withClient("causal-web")
                 .authorizedGrantTypes("password", "refresh_token")
                 .authorities("ROLE_USER")
-                .scopes("read", "write", "trust")
-                .accessTokenValiditySeconds(thirtyMinutes);
+                .scopes("read", "write")
+                .accessTokenValiditySeconds(thirtyMinutes)
+                .refreshTokenValiditySeconds(fourteenDays);
 
         // clients stored in database
-        // clients
-        //     .jdbc(dataSource)
-        //         .passwordEncoder(passwordEncoder());
+        // clients.jdbc(dataSource)
+        //     .passwordEncoder(passwordEncoder());
     }
 }

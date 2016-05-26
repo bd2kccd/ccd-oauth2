@@ -62,10 +62,9 @@ public class CustomUserDetailsService implements UserDetailsService {
          */
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return new HashSet<RoleAuthority>(super.getRoles()
-                                                   .stream()
-                                                   .map(RoleAuthority::new)
-                                                   .collect(Collectors.toList()));
+            return new HashSet<RoleAuthority>(super.getRoles().stream()
+                    .map(RoleAuthority::new)
+                    .collect(Collectors.toList()));
         }
 
         /**
@@ -95,7 +94,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         @Override
         public boolean isEnabled() {
-            return true;
+            return super.getActive();
         }
     }
 }
