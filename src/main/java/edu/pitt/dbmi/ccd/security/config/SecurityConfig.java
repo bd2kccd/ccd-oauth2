@@ -15,6 +15,7 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
+import edu.pitt.dbmi.ccd.security.filter.CrossOriginRequestTokenFilter;
 import edu.pitt.dbmi.ccd.security.userDetails.CustomUserDetailsService;
 
 /**

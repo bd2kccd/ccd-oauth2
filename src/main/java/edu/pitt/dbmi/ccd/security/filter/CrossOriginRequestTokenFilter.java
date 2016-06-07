@@ -1,4 +1,4 @@
-package edu.pitt.dbmi.ccd.security.config;
+package edu.pitt.dbmi.ccd.security.filter;
 
 import static edu.pitt.dbmi.ccd.db.util.StringUtils.notNullOrEmpty;
 

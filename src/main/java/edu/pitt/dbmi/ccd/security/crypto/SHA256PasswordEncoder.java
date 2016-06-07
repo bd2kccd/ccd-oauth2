@@ -29,7 +29,7 @@ public final class SHA256PasswordEncoder implements PasswordEncoder {
 
     /**
      * Check if password matches encrypted value
-     * @param rawPassword     password
+     * @param rawPassword password
      * @param encodedPassword encrypted password
      */
     @Override

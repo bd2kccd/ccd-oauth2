@@ -18,7 +18,8 @@ apply plugin: 'maven'
 apply plugin: 'idea'
 
 group = 'edu.pitt.dbmi'
-version = '1.1.0'
+version = '1.2.0'
+description = "CCD OAuth2.0"
 
 jar {
     baseName = 'ccd-oauth2'

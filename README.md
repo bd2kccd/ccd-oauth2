@@ -1,5 +1,5 @@
-# ccd-security-oauth2
-A security module for CCD applications using OAuth 2.0
+# ccd-oauth2
+An OAuth 2.0 module for CCD applications
 
 ###Dependencies
 ccd-db
@@ -28,10 +28,7 @@ The URLs provided by the Spring Security OAuth2 framework are as follows:
 - `/oauth/check_token` used by Resource Servers to decode access tokens
 - `/oauth/token_key` exposes public key for token verification if using JWT tokens
 
-If this configuration is undesirable, you may provide a custom resource server implementation by:
-
-1. Removing the `@EnableResourceServer` annotation from CCDSecurityApplication.java
-2. Implementing your own `ResourceServerConfigurerAdapter` with the `@EnableResourceServer` annotation
+If this configuration is undesirable, you may implement your own `ResourceServerConfigurerAdapter` with the `@EnableResourceServer` annotation
 
 ###Example
 Here is a simple authentication example using curl.

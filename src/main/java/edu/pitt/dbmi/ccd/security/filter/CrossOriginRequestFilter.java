@@ -1,4 +1,4 @@
-package edu.pitt.dbmi.ccd.security.config;
+package edu.pitt.dbmi.ccd.security.filter;
 
 import java.io.IOException;
 

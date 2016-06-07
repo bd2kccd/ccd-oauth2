@@ -77,21 +77,41 @@ public class CustomUserDetailsService implements UserDetailsService {
             return super.getUsername();
         }
 
+        /**
+         * Get account expiration status
+         *
+         * @return account expiration status
+         */
         @Override
         public boolean isAccountNonExpired() {
             return true;
         }
 
+        /**
+         * Get account locked status
+         *
+         * @return account locked status
+         */
         @Override
         public boolean isAccountNonLocked() {
             return true;
         }
 
+        /**
+         * Get credentials expiration status
+         *
+         * @return credentials expiration status
+         */
         @Override
         public boolean isCredentialsNonExpired() {
             return true;
         }
 
+        /**
+         * Get account enabled status
+         *
+         * @return account enabled status
+         */
         @Override
         public boolean isEnabled() {
             return super.getActive();
