@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.3.5.RELEASE'
+        springBootVersion = '1.4.1.RELEASE'
     }
     repositories {
         jcenter()
@@ -38,7 +38,7 @@ repositories {
 
 dependencies {
     //compile time
-    compile("edu.pitt.dbmi:ccd-db:1.0.0")
+    compile("edu.pitt.dbmi:ccd-db:0.6.0")
     compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}")
     compile("org.springframework.security:spring-security-data:4.0.4.RELEASE")
