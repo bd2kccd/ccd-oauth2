@@ -104,6 +104,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         final int thirtyMinutes = 1800;     // 1,800 seconds
+        final int oneHour = thirtyMinutes*2;
+        final int twoHours = oneHour*2;
+        final int oneDay = twoHours*12;
+        final int oneWeek = oneDay*7;
         final int fourteenDays = 1209600;   // 1,209,600 seconds
 
         // clients stored in memory
@@ -112,14 +116,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authorizedGrantTypes("password", "refresh_token")
                 .authorities("ROLE_USER", "ROLE_ADMIN")
                 .scopes("read", "write")
-                .accessTokenValiditySeconds(thirtyMinutes)
+                .accessTokenValiditySeconds(twoHours)
                 .refreshTokenValiditySeconds(fourteenDays)
             .and()
             .withClient("causal-web")
                 .authorizedGrantTypes("password", "refresh_token")
                 .authorities("ROLE_USER")
                 .scopes("read", "write")
-                .accessTokenValiditySeconds(thirtyMinutes)
+                .accessTokenValiditySeconds(twoHours)
                 .refreshTokenValiditySeconds(fourteenDays);
 
         // clients stored in database
