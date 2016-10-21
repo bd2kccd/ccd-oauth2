@@ -3,7 +3,6 @@ package edu.pitt.dbmi.ccd.security.userDetails;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +37,11 @@ public class CustomUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserAccount> account = accountRepository.findByUsername(username);
-        if (!account.isPresent()) {
+        UserAccount account = accountRepository.findByUsername(username);
+        if (account == null) {
             throw new UsernameNotFoundException(String.format("User %s does not exist", username));
         }
-        return new CustomUserDetails(account.get());
+        return new CustomUserDetails(account);
     }
 
     /**
@@ -52,7 +51,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         private static final long serialVersionUID = 7123123887734014705L;
 
         private CustomUserDetails(UserAccount account) {
-            super(account);
+            super();
         }
 
         /**
@@ -62,7 +61,7 @@ public class CustomUserDetailsService implements UserDetailsService {
          */
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return new HashSet<RoleAuthority>(super.getRoles().stream()
+            return new HashSet<RoleAuthority>(super.getUserRoles().stream()
                     .map(RoleAuthority::new)
                     .collect(Collectors.toList()));
         }

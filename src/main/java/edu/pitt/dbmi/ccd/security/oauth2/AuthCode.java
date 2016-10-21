@@ -1,11 +1,12 @@
 package edu.pitt.dbmi.ccd.security.oauth2;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Table;
+
+import java.io.Serializable;
 
 /**
  * @author Mark Silvis (marksilvis@pitt.edu)
