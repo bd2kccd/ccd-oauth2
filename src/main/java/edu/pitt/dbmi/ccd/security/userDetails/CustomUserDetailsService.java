@@ -47,11 +47,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     /**
      * Extends UserAccount entity into a class suitable for Spring Security's UserDetails
      */
-    private static final class CustomUserDetails extends UserAccount implements UserDetails, Serializable {
+    private static final class CustomUserDetails implements UserDetails, Serializable {
         private static final long serialVersionUID = 7123123887734014705L;
 
-        private CustomUserDetails(UserAccount account) {
+        private UserAccount userAccount;
+
+        private CustomUserDetails(UserAccount userAccount) {
             super();
+            this.userAccount = userAccount;
         }
 
         /**
@@ -61,7 +64,7 @@ public class CustomUserDetailsService implements UserDetailsService {
          */
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return new HashSet<RoleAuthority>(super.getUserRoles().stream()
+            return new HashSet<RoleAuthority>(userAccount.getUserRoles().stream()
                     .map(RoleAuthority::new)
                     .collect(Collectors.toList()));
         }
@@ -73,7 +76,17 @@ public class CustomUserDetailsService implements UserDetailsService {
          */
         @Override
         public String getUsername() {
-            return super.getUsername();
+            return userAccount.getUsername();
+        }
+
+        /**
+         * Get password used to authenticate the user
+         *
+         * @return password
+         */
+        @Override
+        public String getPassword() {
+            return userAccount.getPassword();
         }
 
         /**
@@ -113,7 +126,7 @@ public class CustomUserDetailsService implements UserDetailsService {
          */
         @Override
         public boolean isEnabled() {
-            return super.getActive();
+            return userAccount.getActive();
         }
     }
 }
