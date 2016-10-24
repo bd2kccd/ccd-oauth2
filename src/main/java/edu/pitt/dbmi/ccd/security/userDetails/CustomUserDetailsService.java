@@ -50,7 +50,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private static final class CustomUserDetails implements UserDetails, Serializable {
         private static final long serialVersionUID = 7123123887734014705L;
 
-        private UserAccount userAccount;
+        private final UserAccount userAccount;
 
         private CustomUserDetails(UserAccount userAccount) {
             super();
