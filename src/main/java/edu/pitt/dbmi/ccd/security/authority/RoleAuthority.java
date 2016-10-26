@@ -1,6 +1,7 @@
 package edu.pitt.dbmi.ccd.security.authority;
 
 import org.springframework.security.core.GrantedAuthority;
+
 import edu.pitt.dbmi.ccd.db.entity.UserRole;
 
 /**

@@ -1,14 +1,14 @@
 package edu.pitt.dbmi.ccd.security.oauth2;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
 import javax.persistence.Column;
-import javax.persistence.Lob;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
  * @author Mark Silvis (marksilvis@pitt.edu)

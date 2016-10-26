@@ -19,7 +19,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import edu.pitt.dbmi.ccd.security.crypto.SHA256PasswordEncoder;
-import edu.pitt.dbmi.ccd.security.userDetails.CustomUserDetailsService;
+import edu.pitt.dbmi.ccd.security.userDetails.UserAccountDetailsService;
 
 /**
  * @author Mark Silvis (marksilvis@pitt.edu)
@@ -36,7 +36,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private AuthenticationManager authenticationManager;
 
     @Autowired(required=true)
-    private CustomUserDetailsService userDetailsService;
+    private UserAccountDetailsService userAccountDetailsService;
 
     /**
      * OAuth token store
@@ -93,7 +93,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints
             .tokenStore(tokenStore())
             .authenticationManager(authenticationManager)
-            .userDetailsService(userDetailsService);
+            .userDetailsService(userAccountDetailsService);
     }
 
     /**
@@ -104,6 +104,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         final int thirtyMinutes = 1800;     // 1,800 seconds
+        final int oneHour = thirtyMinutes*2;
+        final int twoHours = oneHour*2;
+        final int oneDay = twoHours*12;
+        final int oneWeek = oneDay*7;
         final int fourteenDays = 1209600;   // 1,209,600 seconds
 
         // clients stored in memory

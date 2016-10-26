@@ -16,7 +16,7 @@ import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 import edu.pitt.dbmi.ccd.security.filter.CrossOriginRequestTokenFilter;
-import edu.pitt.dbmi.ccd.security.userDetails.CustomUserDetailsService;
+import edu.pitt.dbmi.ccd.security.userDetails.UserAccountDetailsService;
 
 /**
  * Configures web security
@@ -29,14 +29,14 @@ import edu.pitt.dbmi.ccd.security.userDetails.CustomUserDetailsService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired(required=true)
-    private CustomUserDetailsService userDetailsService;
+    private UserAccountDetailsService userAccountDetailsService;
 
     @Autowired(required=true)
     private PasswordEncoder passwordEncoder;
 
     @Autowired(required=true)
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService)
+        auth.userDetailsService(userAccountDetailsService)
             .passwordEncoder(passwordEncoder);
     }
 
