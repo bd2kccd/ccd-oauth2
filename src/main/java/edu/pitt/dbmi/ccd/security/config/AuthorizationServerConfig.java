@@ -19,7 +19,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import edu.pitt.dbmi.ccd.security.crypto.SHA256PasswordEncoder;
-import edu.pitt.dbmi.ccd.security.userDetails.CustomUserDetailsService;
+import edu.pitt.dbmi.ccd.security.userDetails.UserAccountDetailsService;
 
 /**
  * @author Mark Silvis (marksilvis@pitt.edu)
@@ -36,7 +36,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private AuthenticationManager authenticationManager;
 
     @Autowired(required=true)
-    private CustomUserDetailsService userDetailsService;
+    private UserAccountDetailsService userAccountDetailsService;
 
     /**
      * OAuth token store
@@ -93,7 +93,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints
             .tokenStore(tokenStore())
             .authenticationManager(authenticationManager)
-            .userDetailsService(userDetailsService);
+            .userDetailsService(userAccountDetailsService);
     }
 
     /**
@@ -116,14 +116,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authorizedGrantTypes("password", "refresh_token")
                 .authorities("ROLE_USER", "ROLE_ADMIN")
                 .scopes("read", "write")
-                .accessTokenValiditySeconds(twoHours)
+                .accessTokenValiditySeconds(thirtyMinutes)
                 .refreshTokenValiditySeconds(fourteenDays)
             .and()
             .withClient("causal-web")
                 .authorizedGrantTypes("password", "refresh_token")
                 .authorities("ROLE_USER")
                 .scopes("read", "write")
-                .accessTokenValiditySeconds(twoHours)
+                .accessTokenValiditySeconds(thirtyMinutes)
                 .refreshTokenValiditySeconds(fourteenDays);
 
         // clients stored in database
