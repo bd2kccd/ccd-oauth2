@@ -23,16 +23,16 @@ public class UserAccountDetailsService implements UserDetailsService {
     }
 
     /**
-     * Finds UserDetails by username of UserAccount
-     * @param  username  username of UserAccount
-     * @return UserDetails of corresponding UserAccount if username is found,
+     * Finds UserDetails by email of UserAccount
+     * @param  username  email of UserAccount
+     * @return UserDetails of corresponding UserAccount if email is found,
      *         otherwise throws {@link org.springframework.security.core.userdetails.UsernameNotFoundException}
      */
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserAccount account = accountRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        UserAccount account = accountRepository.findByEmail(email);
         if (account == null) {
-            throw new UsernameNotFoundException(String.format("User %s does not exist", username));
+            throw new UsernameNotFoundException(String.format("User with email %s does not exist", email));
         }
         return new UserAccountDetails(account);
     }

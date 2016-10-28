@@ -70,13 +70,13 @@ public final class UserAccountDetails implements UserDetails, Serializable {
     }
 
     /**
-     * Get username
+     * Get username (we use their email)
      *
-     * @return username
+     * @return email
      */
     @Override
     public String getUsername() {
-        return userAccount.getUsername();
+        return userAccount.getPerson().getEmail();
     }
 
     /**
