@@ -24,7 +24,7 @@ public class UserAccountDetailsService implements UserDetailsService {
 
     /**
      * Finds UserDetails by email of UserAccount
-     * @param  username  email of UserAccount
+     * @param  email  email of UserAccount
      * @return UserDetails of corresponding UserAccount if email is found,
      *         otherwise throws {@link org.springframework.security.core.userdetails.UsernameNotFoundException}
      */
