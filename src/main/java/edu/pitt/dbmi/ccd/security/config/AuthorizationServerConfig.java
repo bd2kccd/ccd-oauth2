@@ -123,7 +123,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authorizedGrantTypes("password", "refresh_token")
                 .authorities("ROLE_USER")
                 .scopes("read", "write")
-                .accessTokenValiditySeconds(thirtyMinutes)
+                .accessTokenValiditySeconds(twoHours)
                 .refreshTokenValiditySeconds(fourteenDays);
 
         // clients stored in database
