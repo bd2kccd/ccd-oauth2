@@ -70,8 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/**/docs/**")
-            .and().ignoring().antMatchers("/**/info/")
-            .and().ignoring().antMatchers("/**/health/");
+            .and().ignoring().antMatchers("/**/info")
+            .and().ignoring().antMatchers("/**/health");
     }
 
     protected CsrfTokenRepository csrfTokenRepository() {
