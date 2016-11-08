@@ -106,6 +106,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         final int thirtyMinutes = 1800;     // 1,800 seconds
         final int oneHour = thirtyMinutes*2;
         final int twoHours = oneHour*2;
+        final int fourHours = twoHours*2;
         final int oneDay = twoHours*12;
         final int oneWeek = oneDay*7;
         final int fourteenDays = 1209600;   // 1,209,600 seconds
@@ -123,7 +124,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authorizedGrantTypes("password", "refresh_token")
                 .authorities("ROLE_USER")
                 .scopes("read", "write")
-                .accessTokenValiditySeconds(twoHours)
+                .accessTokenValiditySeconds(fourHours)
                 .refreshTokenValiditySeconds(fourteenDays);
 
         // clients stored in database
