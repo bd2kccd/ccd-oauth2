@@ -2,14 +2,14 @@
 An OAuth 2.0 module for CCD applications
 
 ###Dependencies
-ccd-db
+ccd-db-0.6.2
+
+###Requirement to Install
+- Oracle Java 8 ([http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html))
+- Maven 3.x - ([https://maven.apache.org/download.cgi](https://maven.apache.org/download.cgi))
 
 ###Install
-**Linux and OS X**    
-./gradlew install
-
-**Windows**    
-gradlew install
+`mvn clean install`
 
 ###To add to your Spring application 
 - Add the following to your main class    
