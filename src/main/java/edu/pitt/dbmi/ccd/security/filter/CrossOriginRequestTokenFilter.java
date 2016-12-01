@@ -1,22 +1,19 @@
 package edu.pitt.dbmi.ccd.security.filter;
 
-import static org.springframework.util.StringUtils.isEmpty;
-
+import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
-
 import org.springframework.security.web.csrf.CsrfToken;
+import static org.springframework.util.StringUtils.isEmpty;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
-*
-* @author Mark Silvis (marksilvis@pitt.edu)
-*/
+ *
+ * @author Mark Silvis (marksilvis@pitt.edu)
+ */
 public class CrossOriginRequestTokenFilter extends OncePerRequestFilter {
 
     // cookie name
@@ -39,4 +36,5 @@ public class CrossOriginRequestTokenFilter extends OncePerRequestFilter {
         }
         chain.doFilter(request, response);
     }
+
 }

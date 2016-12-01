@@ -16,29 +16,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-
 package edu.pitt.dbmi.ccd.security.userDetails;
 
 /**
  */
-
+import edu.pitt.dbmi.ccd.db.entity.UserAccount;
+import edu.pitt.dbmi.ccd.security.authority.RoleAuthority;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.stream.Collectors;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import edu.pitt.dbmi.ccd.db.entity.UserAccount;
-import edu.pitt.dbmi.ccd.security.authority.RoleAuthority;
-
 /**
- * Composes UserAccount entity into a class suitable for Spring Security's UserDetails
+ * Composes UserAccount entity into a class suitable for Spring Security's
+ * UserDetails
  *
  * @author Mark Silvis (marksilvis@pitt.edu)
  */
 public final class UserAccountDetails implements UserDetails, Serializable {
+
     private static final long serialVersionUID = 7123123887734014705L;
 
     private final UserAccount userAccount;
@@ -128,4 +126,5 @@ public final class UserAccountDetails implements UserDetails, Serializable {
     public boolean isEnabled() {
         return userAccount.getActive();
     }
+
 }

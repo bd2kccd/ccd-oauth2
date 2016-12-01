@@ -1,13 +1,12 @@
 package edu.pitt.dbmi.ccd.security.userDetails;
 
+import edu.pitt.dbmi.ccd.db.entity.UserAccount;
+import edu.pitt.dbmi.ccd.db.repository.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import edu.pitt.dbmi.ccd.db.entity.UserAccount;
-import edu.pitt.dbmi.ccd.db.repository.UserAccountRepository;
 
 /**
  * @author Mark Silvis (marksilvis@pitt.edu)
@@ -24,9 +23,11 @@ public class UserAccountDetailsService implements UserDetailsService {
 
     /**
      * Finds UserDetails by email of UserAccount
-     * @param  email  email of UserAccount
+     *
+     * @param email email of UserAccount
      * @return UserDetails of corresponding UserAccount if email is found,
-     *         otherwise throws {@link org.springframework.security.core.userdetails.UsernameNotFoundException}
+     * otherwise throws
+     * {@link org.springframework.security.core.userdetails.UsernameNotFoundException}
      */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -36,4 +37,5 @@ public class UserAccountDetailsService implements UserDetailsService {
         }
         return new UserAccountDetails(account);
     }
+
 }

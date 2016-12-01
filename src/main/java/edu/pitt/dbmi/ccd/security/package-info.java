@@ -3,5 +3,4 @@
  *
  * @author Mark Silvis (marksilvis@pitt.edu)
  */
-
 package edu.pitt.dbmi.ccd.security;

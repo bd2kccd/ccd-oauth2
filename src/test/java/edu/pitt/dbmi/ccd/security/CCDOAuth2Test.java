@@ -18,27 +18,23 @@
  */
 package edu.pitt.dbmi.ccd.security;
 
-import edu.pitt.dbmi.ccd.db.CCDDatabaseApplication;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * OAuth 2.0 package for CCD applications
  *
- * @author Mark Silvis (marksilvis@pitt.edu)
+ * Dec 1, 2016 5:14:14 PM
+ *
+ * @author Kevin V. Bui (kvb2@pitt.edu)
  */
-@Import({CCDDatabaseApplication.class})
-@EnableResourceServer
-@SpringBootApplication
-public class CCDOAuth2 {
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class CCDOAuth2Test {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(CCDOAuth2.class, args);
+    @Test
+    public void contextLoads() {
     }
 
 }
