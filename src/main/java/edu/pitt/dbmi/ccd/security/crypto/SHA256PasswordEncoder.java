@@ -11,7 +11,8 @@ public final class SHA256PasswordEncoder implements PasswordEncoder {
 
     private static DefaultPasswordService passwordService = new DefaultPasswordService();
 
-    public SHA256PasswordEncoder() { };
+    public SHA256PasswordEncoder() {
+    }
 
     public SHA256PasswordEncoder(int iterations) {
         this.setHashIterations(iterations);
@@ -19,6 +20,7 @@ public final class SHA256PasswordEncoder implements PasswordEncoder {
 
     /**
      * Encrypt password
+     *
      * @param rawPassword unencrypted password
      * @return encrypted password
      */
@@ -29,6 +31,7 @@ public final class SHA256PasswordEncoder implements PasswordEncoder {
 
     /**
      * Check if password matches encrypted value
+     *
      * @param rawPassword password
      * @param encodedPassword encrypted password
      */
@@ -39,6 +42,7 @@ public final class SHA256PasswordEncoder implements PasswordEncoder {
 
     /**
      * Set hash iterations (default 500,000)
+     *
      * @param iterations hash iterations
      */
     protected void setHashIterations(int iterations) {
@@ -46,4 +50,5 @@ public final class SHA256PasswordEncoder implements PasswordEncoder {
         defaultHashService.setHashIterations(iterations);
         passwordService.setHashService(defaultHashService);
     }
+
 }

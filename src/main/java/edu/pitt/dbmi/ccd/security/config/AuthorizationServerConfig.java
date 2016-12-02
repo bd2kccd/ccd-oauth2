@@ -1,7 +1,8 @@
 package edu.pitt.dbmi.ccd.security.config;
 
+import edu.pitt.dbmi.ccd.security.crypto.SHA256PasswordEncoder;
+import edu.pitt.dbmi.ccd.security.userDetails.UserAccountDetailsService;
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -18,9 +19,6 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
-import edu.pitt.dbmi.ccd.security.crypto.SHA256PasswordEncoder;
-import edu.pitt.dbmi.ccd.security.userDetails.UserAccountDetailsService;
-
 /**
  * @author Mark Silvis (marksilvis@pitt.edu)
  */
@@ -28,14 +26,14 @@ import edu.pitt.dbmi.ccd.security.userDetails.UserAccountDetailsService;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    @Autowired(required=true)
+    @Autowired(required = true)
     private DataSource dataSource;
 
-    @Autowired(required=true)
+    @Autowired(required = true)
     @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
 
-    @Autowired(required=true)
+    @Autowired(required = true)
     private UserAccountDetailsService userAccountDetailsService;
 
     /**
@@ -75,7 +73,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     /**
      * Enables querying by current authenticated user (@AuthenticationPrincipal)
      *
-     * @return  SecurityEvaluationContextExtension
+     * @return SecurityEvaluationContextExtension
      * @see org.springframework.security.core.Authentication#getPrincipal()
      */
     @Bean
@@ -86,48 +84,52 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     /**
      * Endpoints configuration
      *
-     * @see org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer
+     * @see
+     * org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
-            .tokenStore(tokenStore())
-            .authenticationManager(authenticationManager)
-            .userDetailsService(userAccountDetailsService);
+                .tokenStore(tokenStore())
+                .authenticationManager(authenticationManager)
+                .userDetailsService(userAccountDetailsService);
     }
 
     /**
      * Client store configuration
      *
-     * @see org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer
+     * @see
+     * org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         final int thirtyMinutes = 1800;     // 1,800 seconds
-        final int oneHour = thirtyMinutes*2;
-        final int twoHours = oneHour*2;
-        final int oneDay = twoHours*12;
-        final int oneWeek = oneDay*7;
+        final int oneHour = thirtyMinutes * 2;
+        final int twoHours = oneHour * 2;
+        final int fourHours = twoHours * 2;
+        final int oneDay = twoHours * 12;
+        final int oneWeek = oneDay * 7;
         final int fourteenDays = 1209600;   // 1,209,600 seconds
 
         // clients stored in memory
         clients.inMemory()
-            .withClient("curl")
+                .withClient("curl")
                 .authorizedGrantTypes("password", "refresh_token")
                 .authorities("ROLE_USER", "ROLE_ADMIN")
                 .scopes("read", "write")
                 .accessTokenValiditySeconds(thirtyMinutes)
                 .refreshTokenValiditySeconds(fourteenDays)
-            .and()
-            .withClient("causal-web")
+                .and()
+                .withClient("causal-web")
                 .authorizedGrantTypes("password", "refresh_token")
                 .authorities("ROLE_USER")
                 .scopes("read", "write")
-                .accessTokenValiditySeconds(thirtyMinutes)
+                .accessTokenValiditySeconds(fourHours)
                 .refreshTokenValiditySeconds(fourteenDays);
 
         // clients stored in database
         // clients.jdbc(dataSource)
         //     .passwordEncoder(passwordEncoder());
     }
+
 }
