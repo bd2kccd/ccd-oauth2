@@ -1,21 +1,21 @@
 # ccd-oauth2
 An OAuth 2.0 module for CCD applications
 
-###Dependencies
+### Dependencies
 ccd-db-0.6.2
 
-###Requirement to Install
+### Requirement to Install
 - Oracle Java 8 ([http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html))
 - Maven 3.x - ([https://maven.apache.org/download.cgi](https://maven.apache.org/download.cgi))
 
-###Install
+### Install
 `mvn clean install`
 
-###To add to your Spring application 
+### To add to your Spring application 
 - Add the following to your main class    
 `@Import({CCDOAuth2.class})`
 
-###Custom Resource Server
+### Custom Resource Server
 The _resource server_ filters requests by authentication. ccd-security-oauth2 uses the default resource server configuration, which does the following:
 - Disallows access to any resource endpoints by unauthenticated clients
 - Allows access to endpoints provided by the Spring Security OAuth2 framework
@@ -30,7 +30,7 @@ The URLs provided by the Spring Security OAuth2 framework are as follows:
 
 If this configuration is undesirable, you may implement your own `ResourceServerConfigurerAdapter` with the `@EnableResourceServer` annotation
 
-###Example
+### Example
 Here is a simple authentication example using curl.
 
 ```
